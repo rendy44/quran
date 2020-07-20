@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './Style.scss';
 
 const Section = (props) => {
-    const colSizeCss = props.isFull ? 'col' : 'col-sm-6-7 col-md-3-4';
+    const colSizeCss = props.isFull ? 'col' : 'col-sm-6-7 col-md-4-5 col-lg-3-4';
     return (
         <>
             <section className='section'>
