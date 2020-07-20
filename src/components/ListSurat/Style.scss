@@ -1,0 +1,94 @@
+@import '../../assets/sass/MainUtil';
+
+.surat-items {
+    .surat-item a {
+        padding: .5rem 0;
+        border-bottom: 1px solid rgba($black, .1);
+        margin-bottom: .5rem;
+        display: flex;
+        justify-content: space-between;
+
+        .detail {
+            display: flex;
+            align-items: center;
+            padding-left: .5rem;
+
+            .dleft {
+                position: relative;
+                width: 30px;
+                height: 30px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: $main;
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: $main;
+                    @include rotate(45deg);
+                }
+
+                &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: $white;
+                    border: 1px solid $main;
+                    @include borderRadius(50%);
+                }
+
+                &>* {
+                    position: relative;
+                    z-index: 1;
+                }
+
+
+                span.number {
+                    color: $main;
+                    font-weight: 600;
+                    font-size: 70%;
+                }
+            }
+
+            .dright {
+                margin-left: 1rem;
+
+                .drightupper {
+                    margin-bottom: .2rem;
+
+                    span {
+                        font-weight: 500;
+                    }
+                }
+
+                .drightbottom {
+                    font-size: 80%;
+
+                    span {
+                        &:last-child {
+                            &::before {
+                                content: ' | ';
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .graph {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            @include arabicCalligraphy;
+            line-height: 1;
+        }
+    }
+}
