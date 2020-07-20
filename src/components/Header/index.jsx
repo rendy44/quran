@@ -6,7 +6,8 @@ const Header = () => {
         <>
             <header className='header'>
                 <div className='frow-container'>
-                    <div className='inner'></div>
+                    <div className='inner'>
+                    </div>
                 </div>
             </header>
         </>

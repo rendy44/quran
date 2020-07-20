@@ -1,45 +1,49 @@
 import React from 'react';
-import DataSurat from '../../data/surah.json';
-import ListSuratItem from './ListSuratItem';
+import PropTypes from 'prop-types';
+import { Link } from "react-router-dom";
 import './Style.scss';
 
-class ListSurat extends React.Component {
-    constructor() {
-        super()
+export const ListSurat = (props) => {
 
-        this.state = {
-            listSurat: [],
-            listSuratHtml: [],
-        }
-    }
-
-    render() {
-        return (
-            <>
-                <div className='surat-items'>
-                    {this.state.listSuratHtml}
-                </div>
-            </>
-        )
-    }
-
-    componentDidMount() {
-        let listSuratHtml = [];
-        DataSurat.map((surat, i) => {
-            return (
-                listSuratHtml.push(<ListSuratItem
-                    key={i}
-                    index={surat.index}
-                    title={surat.title}
-                    titleAr={surat.titleAr}
-                    numberOfAyat={surat.count}
-                    type={surat.type}
-                />)
-            )
-        })
-
-        this.setState({ listSuratHtml: listSuratHtml })
-    }
+    return (
+        <>
+            <div className='surat-items'>
+                {props.children}
+            </div>
+        </>
+    )
 }
 
-export default ListSurat;
+export const ListSuratItem = (props) => {
+    return (
+        <div className='surat-item'>
+            <Link className='inner-item' to={'/surat/' + props.index}>
+                <div className='detail'>
+                    <div className='dleft'>
+                        <span className='number'>{props.index}</span>
+                    </div>
+                    <div className='dright'>
+                        <div className='drightupper'>
+                            <span className='name'>{props.title}</span>
+                        </div>
+                        <div className='drightbottom'>
+                            <span>{props.type}</span>
+                            <span>{props.numberOfAyat} ayat</span>
+                        </div>
+                    </div>
+                </div>
+                <div className='graph'>
+                    <span>{props.titleAr}</span>
+                </div>
+            </Link>
+        </div>
+    )
+}
+
+ListSuratItem.propTypes = {
+    index: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    titleAr: PropTypes.string.isRequired,
+    numberOfAyat: PropTypes.number.isRequired,
+    type: PropTypes.string.isRequired,
+}
