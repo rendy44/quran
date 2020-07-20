@@ -3,7 +3,6 @@ import DataSurat from '../../data/surah.json';
 import ListSuratItem from './ListSuratItem';
 import './Style.scss';
 
-
 class ListSurat extends React.Component {
     constructor() {
         super()
@@ -27,14 +26,16 @@ class ListSurat extends React.Component {
     componentDidMount() {
         let listSuratHtml = [];
         DataSurat.map((surat, i) => {
-            listSuratHtml.push(<ListSuratItem
-                key={i}
-                index={surat.index}
-                title={surat.title}
-                titleAr={surat.titleAr}
-                numberOfAyat={surat.count}
-                type={surat.type}
-            />)
+            return (
+                listSuratHtml.push(<ListSuratItem
+                    key={i}
+                    index={surat.index}
+                    title={surat.title}
+                    titleAr={surat.titleAr}
+                    numberOfAyat={surat.count}
+                    type={surat.type}
+                />)
+            )
         })
 
         this.setState({ listSuratHtml: listSuratHtml })

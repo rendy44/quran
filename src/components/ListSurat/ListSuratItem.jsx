@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 const ListSuratItem = (props) => {
     return (
         <div className='surat-item'>
-            <a href='#'>
+            <a href='#url'>
                 <div className='detail'>
                     <div className='dleft'>
                         <span className='number'>{props.index}</span>
