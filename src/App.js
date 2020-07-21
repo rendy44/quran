@@ -49,7 +49,7 @@ class App extends React.Component {
               </Route>
             </Switch>
             <Footer>
-              &copy; 2016 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
+              &copy; 2020 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
             </Footer>
           </Router>
         </>
