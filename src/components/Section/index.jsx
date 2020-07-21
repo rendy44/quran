@@ -5,9 +5,10 @@ import './Style.scss';
 const Section = (props) => {
     const colSizeCss = props.isFull ? 'col' : 'col-sm-6-7 col-md-4-5 col-lg-3-4';
     const maybeTitle = props.title ? <div className='section-title'><h2 className='title'>{props.title}</h2></div> : '';
+    const sectionClass = props.extraClass ? 'section ' + props.extraClass : 'section';
     return (
         <>
-            <section className='section'>
+            <section className={sectionClass}>
                 <div className='frow-container'>
                     <div className='inner'>
                         <div className='frow'>
@@ -25,7 +26,8 @@ const Section = (props) => {
 
 Section.propTypes = {
     title: PropTypes.string,
-    isFull: PropTypes.bool
+    isFull: PropTypes.bool,
+    extraClass: PropTypes.string
 }
 
 export const FullSection = (props) => {

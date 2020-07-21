@@ -51,7 +51,7 @@ class DetailSuratBody extends React.Component {
                 })
                 return (
                     <>
-                        <Section isFull={true}>
+                        <Section isFull={true} extraClass='detail-surat'>
                             <div className='ayat-items'>
                                 {ListAyatHtml}
                             </div>

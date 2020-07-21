@@ -1,63 +1,71 @@
 @import '../../assets/sass/MainUtil';
 
-.ayat-items {
-    .ayat-item {
-        margin-bottom: 2rem;
-        border-bottom: 1px solid rgba($black, .1);
-        padding-bottom: 1rem;
+.section.detail-surat {
+    margin-top: 50px;
 
-        .ayatAr {
-            direction: rtl;
-            margin-bottom: .5rem;
+    .ayat-items {
+        .ayat-item {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid rgba($black, .1);
+            padding-bottom: 1rem;
 
-            span {
-                &.ar {
-                    font-size: 2rem;
-                    letter-spacing: 1px;
-                    line-height: 1.5;
-                }
+            .ayatAr {
+                direction: rtl;
+                margin-bottom: .5rem;
 
-                &.breaker {
-                    font-size: 2rem;
-                    vertical-align: super;
-                    position: relative;
+                span {
+                    &.ar {
+                        font-size: 2rem;
+                        letter-spacing: 1px;
+                        line-height: 1.5;
+                    }
 
-                    .breaker-inner {
-                        font-size: 12px;
-                        width: 30px;
-                        height: 30px;
-                        display: inline-flex;
-                        align-items: center;
-                        justify-content: center;
-                        margin-right: 1rem;
-                        font-weight: 600;
+                    &.breaker {
+                        font-size: 2rem;
+                        vertical-align: super;
                         position: relative;
-                        top: -2px;
-                        color: $main;
 
-                        &::after {
-                            content: '';
-                            position: absolute;
-                            top: 0;
-                            left: 0;
-                            height: 100%;
-                            width: 100%;
-                            border: 2px dotted $main;
-                            @include borderRadius(50%);
+                        .breaker-inner {
+                            font-size: 12px;
+                            width: 30px;
+                            height: 30px;
+                            display: inline-flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin-right: 1rem;
+                            font-weight: 600;
+                            position: relative;
+                            top: -2px;
+                            color: $main;
+
+                            &::after {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                height: 100%;
+                                width: 100%;
+                                border: 2px dotted $main;
+                                @include borderRadius(50%);
+                            }
+
+                            // @include borderRadius(50%);
                         }
-
-                        // @include borderRadius(50%);
                     }
                 }
             }
-        }
 
-        .ayatTranslation {
-            p {
-                margin: 0;
-                line-height: 1.4;
-                font-size: 1.1rem;
+            .ayatTranslation {
+                p {
+                    margin: 0;
+                    line-height: 1.4;
+                    font-size: 1.1rem;
+                }
             }
         }
+    }
+
+    @include breakpoint(768px) {
+        margin-top: 80px;
     }
 }
