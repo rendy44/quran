@@ -15,27 +15,33 @@ class DetailSuratBody extends React.Component {
             isLoadSuccess: false,
             numberOfAyat: 0,
             nameOfSurat: '',
-            listAyat: []
+            listAyat: [],
+            translation: []
         }
     }
 
     render() {
-        const { isLoaded, isLoadSuccess, numberOfAyat, nameOfSurat, listAyat } = this.state;
+        const { isLoaded, isLoadSuccess, numberOfAyat, nameOfSurat, listAyat, translation } = this.state;
         if (isLoaded) {
             if (isLoadSuccess) {
-                let AyatList = Object.values(listAyat);
+                let AyatList = Object.entries(listAyat);
                 let ListAyatHtml = [];
 
+                let TranslationList = Object.entries(translation);
+                console.log(TranslationList)
 
                 AyatList.map((ayat, i) => {
 
-                    // Skip the first ayat as it is bismillah.
-                    if (0 === i) {
+                    const cleanAyatStr = ayat[0].replace('verse_', ''),
+                        cleanAyatTrans = TranslationList[i][1];
+
+                    // Skip if it is verse_0;
+                    if ('verse_0' === ayat[0]) {
                         return false;
                     }
 
                     return (
-                        ListAyatHtml.push(<DetailAyat key={i} ayatIndex={i} ayatAr={ayat} />)
+                        ListAyatHtml.push(<DetailAyat key={i} ayatIndex={cleanAyatStr} ayatAr={ayat[1]} ayatTranslation={cleanAyatTrans} />)
                     )
                 })
                 return (
@@ -60,15 +66,28 @@ class DetailSuratBody extends React.Component {
     }
 
     componentDidMount() {
-        importDetailSurat(this.props.suratId)
+
+        const { suratId } = this.props;
+        // Import detail surat.
+        importDetailSurat(suratId)
             .then((data) => {
-                this.setState({
-                    isLoaded: true,
-                    isLoadSuccess: true,
-                    nameOfSurat: data.name,
-                    numberOfAyat: data.count,
-                    listAyat: data.verse
-                })
+
+                // Import translation.
+                importTranslation(suratId)
+                    .then((dataTrans) => {
+                        this.setState({
+                            isLoaded: true,
+                            isLoadSuccess: true,
+                            nameOfSurat: data.name,
+                            numberOfAyat: data.count,
+                            listAyat: data.verse,
+                            translation: dataTrans.verse
+                        })
+                    })
+                    .catch((err) => {
+                        console.log(err)
+                        this.setState({ isLoaded: true })
+                    })
             })
             .catch((err) => {
                 this.setState({ isLoaded: true })
@@ -76,6 +95,11 @@ class DetailSuratBody extends React.Component {
     }
 }
 
+const importTranslation = (suratIndex) => {
+    return (
+        import('../../data/translation/id/id_translation_' + suratIndex + '.json')
+    )
+}
 const importDetailSurat = (suratIndex) => {
     return (
         import('../../data/surah/surah_' + suratIndex + '.json')
@@ -99,6 +123,9 @@ const DetailAyat = (props) => {
                     <span className='breaker-inner'>{props.ayatIndex}</span>
                 </span>
             </div>
+            <div className='ayatTranslation'>
+                <p>{props.ayatTranslation}</p>
+            </div>
         </div>
     )
 }
@@ -108,7 +135,8 @@ DetailSuratBody.propTypes = {
 }
 DetailAyat.propTypes = {
     ayatAr: PropTypes.string.isRequired,
-    ayatIndex: PropTypes.number.isRequired
+    ayatIndex: PropTypes.string.isRequired,
+    ayatTranslation: PropTypes.string.isRequired
 }
 
 export { DetailSurat, DetailSuratBody, DetailAyat }

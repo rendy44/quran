@@ -3,9 +3,12 @@
 .ayat-items {
     .ayat-item {
         margin-bottom: 2rem;
+        border-bottom: 1px solid rgba($black, .1);
+        padding-bottom: 1rem;
 
         .ayatAr {
             direction: rtl;
+            margin-bottom: .5rem;
 
             span {
                 &.ar {
@@ -46,6 +49,14 @@
                         // @include borderRadius(50%);
                     }
                 }
+            }
+        }
+
+        .ayatTranslation {
+            p {
+                margin: 0;
+                line-height: 1.4;
+                font-size: 1.1rem;
             }
         }
     }
