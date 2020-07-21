@@ -41,7 +41,7 @@ export const ListSuratItem = (props) => {
 }
 
 ListSuratItem.propTypes = {
-    index: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     titleAr: PropTypes.string.isRequired,
     numberOfAyat: PropTypes.number.isRequired,

@@ -59,7 +59,7 @@ class App extends React.Component {
       return (
         listSuratHtml.push(<ListSuratItem
           key={i}
-          index={surat.index}
+          index={parseInt(surat.index)}
           title={surat.title}
           titleAr={surat.titleAr}
           numberOfAyat={surat.count}

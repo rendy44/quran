@@ -6,11 +6,25 @@ export class DetailSuratBody extends React.Component {
         super(props);
 
         this.state = {
-            suratId: ''
+            suratId: '',
+            detailSurat: [],
+            isLoaded: false,
+            isLoadSuccess: false
         }
     }
 
     render() {
+        const { isLoaded, isLoadSuccess, detailSurat } = this.state;
+        if (isLoaded) {
+            if (isLoadSuccess) {
+                console.log(detailSurat);
+            } else {
+
+            }
+        } else {
+
+        }
+
         return (
             <>
                 {this.state.suratId}
@@ -19,10 +33,25 @@ export class DetailSuratBody extends React.Component {
     }
 
     componentDidMount() {
-        this.setState({ suratId: this.props.suratId });
+        importDetailSurat(this.props.suratId)
+            .then((data) => {
+                this.setState({
+                    isLoaded: true,
+                    isLoadSuccess: true,
+                    detailSurat: data
+                })
+            })
+            .catch((err) => {
+                this.setState({ isLoaded: true })
+            })
     }
 }
 
+const importDetailSurat = (suratIndex) => {
+    return (
+        import('../../data/surah/surah_' + suratIndex + '.json')
+    )
+}
 export function DetailSurat() {
     let { suratId } = useParams();
 
