@@ -29,8 +29,8 @@ class App extends React.Component {
     if (this.state.isLoaded) {
       return (
         <>
-          <Header />
           <Router>
+            <Header />
             <Switch>
               <Route path='/surat/:suratId'>
                 <DetailSurat />
@@ -48,10 +48,10 @@ class App extends React.Component {
                 </>
               </Route>
             </Switch>
+            <Footer>
+              &copy; 2016 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
+            </Footer>
           </Router>
-          <Footer>
-            &copy; 2016 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
-          </Footer>
         </>
       )
     } else {

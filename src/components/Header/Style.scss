@@ -2,5 +2,28 @@
 
 .header {
     background-color: $white;
-    padding: 2rem 0;
+    padding: 1rem 0;
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    @include boxShadow(0, .2rem, .4rem, rgba($black, .15));
+    @include defaultTransition;
+
+    .nav {
+        a {
+            font-weight: 600;
+
+            &:hover,
+            &:active,
+            &:focus {
+                text-decoration: none;
+            }
+        }
+    }
+
+    @include breakpoint(768px) {
+        padding: 2rem 0;
+    }
 }

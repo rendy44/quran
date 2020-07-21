@@ -10,6 +10,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    padding-top: 50px;
 
     &>* {
         position: relative;
@@ -41,5 +42,9 @@
         font-weight: 600;
         text-transform: uppercase;
         margin: 0;
+    }
+
+    @include breakpoint(768px) {
+        padding-top: 82px;
     }
 }
