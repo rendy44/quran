@@ -22,8 +22,4 @@
             }
         }
     }
-
-    @include breakpoint(768px) {
-        padding: 2rem 0;
-    }
 }

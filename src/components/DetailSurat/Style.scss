@@ -3,11 +3,19 @@
 .section.detail-surat {
     margin-top: 50px;
 
+    .basmallah {
+        text-align: center;
+        font-size: 2rem;
+        margin: 1rem 0 4rem;
+        // border-bottom: 1px solid rgba($black, .1);
+        padding-bottom: 2rem;
+    }
+
     .ayat-items {
         .ayat-item {
             margin-bottom: 2rem;
             border-bottom: 1px solid rgba($black, .1);
-            padding-bottom: 1rem;
+            padding-bottom: 2rem;
 
             .ayatAr {
                 direction: rtl;
@@ -60,12 +68,12 @@
                     margin: 0;
                     line-height: 1.4;
                     font-size: 1.1rem;
+
+                    &::first-letter {
+                        text-transform: uppercase;
+                    }
                 }
             }
         }
-    }
-
-    @include breakpoint(768px) {
-        margin-top: 80px;
     }
 }

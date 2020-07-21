@@ -43,8 +43,4 @@
         text-transform: uppercase;
         margin: 0;
     }
-
-    @include breakpoint(768px) {
-        padding-top: 82px;
-    }
 }

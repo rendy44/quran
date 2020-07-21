@@ -10,7 +10,7 @@ class DetailSuratBody extends React.Component {
         super(props);
 
         this.state = {
-            suratId: '',
+            suratId: 0,
             isLoaded: false,
             isLoadSuccess: false,
             numberOfAyat: 0,
@@ -24,11 +24,10 @@ class DetailSuratBody extends React.Component {
         const { isLoaded, isLoadSuccess, listAyat, translation } = this.state;
         if (isLoaded) {
             if (isLoadSuccess) {
+                let maybeBasmallah = 1 !== this.state.suratId ? <Basmallah /> : '';
                 let AyatList = Object.entries(listAyat);
                 let ListAyatHtml = [];
-
                 let TranslationList = Object.entries(translation);
-                console.log(TranslationList)
 
                 AyatList.map((ayat, i) => {
 
@@ -49,9 +48,11 @@ class DetailSuratBody extends React.Component {
                         />)
                     )
                 })
+
                 return (
                     <>
                         <Section isFull={true} extraClass='detail-surat'>
+                            {maybeBasmallah}
                             <div className='ayat-items'>
                                 {ListAyatHtml}
                             </div>
@@ -81,6 +82,7 @@ class DetailSuratBody extends React.Component {
                 importTranslation(suratId)
                     .then((dataTrans) => {
                         this.setState({
+                            suratId: suratId,
                             isLoaded: true,
                             isLoadSuccess: true,
                             nameOfSurat: data.name,
@@ -116,6 +118,14 @@ const DetailSurat = () => {
 
     return (
         <DetailSuratBody suratId={parseInt(suratId)} />
+    )
+}
+
+const Basmallah = () => {
+    return (
+        <div className='basmallah'>
+            <span>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</span>
+        </div>
     )
 }
 
