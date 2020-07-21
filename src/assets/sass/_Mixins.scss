@@ -40,14 +40,6 @@
     text-shadow: 2px 2px 1px $color;
 }
 
-@mixin fontMain() {
-    font-family: 'Baloo 2', cursive;
-}
-
-@mixin fontWriting() {
-    font-family: 'Dancing Script', cursive;
-}
-
 @mixin zoom($size:1.2) {
     transform: scale($size);
     -moz-transform: scale($size);
@@ -79,12 +71,16 @@
     -webkit-transform: $args;
 }
 
+@mixin latinFont {
+    font-family: 'Quicksand', sans-serif;
+}
+
 @mixin arabicCalligraphy {
     font-family: 'Reem Kufi', sans-serif;
 }
 
 @mixin arabicBasic {
-    font-family: 'Scheherazade', serif;
+    font-family: 'Amiri', serif;
 }
 
 @mixin rotate($val) {

@@ -1,38 +1,62 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
-import { LoadingFull } from '../Global';
+import { LoadingFull, ErrorScreen } from '../Global';
+import PropTypes from 'prop-types';
+import Section from '../Section';
+import './Style.scss';
 
-export class DetailSuratBody extends React.Component {
+class DetailSuratBody extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             suratId: '',
-            detailSurat: [],
             isLoaded: false,
-            isLoadSuccess: false
+            isLoadSuccess: false,
+            numberOfAyat: 0,
+            nameOfSurat: '',
+            listAyat: []
         }
     }
 
     render() {
-        const { isLoaded, isLoadSuccess, detailSurat } = this.state;
+        const { isLoaded, isLoadSuccess, numberOfAyat, nameOfSurat, listAyat } = this.state;
         if (isLoaded) {
             if (isLoadSuccess) {
-                console.log(detailSurat);
-            } else {
+                let AyatList = Object.values(listAyat);
+                let ListAyatHtml = [];
 
+
+                AyatList.map((ayat, i) => {
+
+                    // Skip the first ayat as it is bismillah.
+                    if (0 === i) {
+                        return false;
+                    }
+
+                    return (
+                        ListAyatHtml.push(<DetailAyat key={i} ayatIndex={i} ayatAr={ayat} />)
+                    )
+                })
+                return (
+                    <>
+                        <Section isFull={true}>
+                            <div className='ayat-items'>
+                                {ListAyatHtml}
+                            </div>
+                        </Section>
+                    </>
+                )
+            } else {
+                return (
+                    <ErrorScreen title={'Kesalahan'} lead={'Surat tidak ditemukan!'} />
+                )
             }
         } else {
             return (
                 <LoadingFull />
             )
         }
-
-        return (
-            <>
-                {this.state.suratId}
-            </>
-        )
     }
 
     componentDidMount() {
@@ -41,7 +65,9 @@ export class DetailSuratBody extends React.Component {
                 this.setState({
                     isLoaded: true,
                     isLoadSuccess: true,
-                    detailSurat: data
+                    nameOfSurat: data.name,
+                    numberOfAyat: data.count,
+                    listAyat: data.verse
                 })
             })
             .catch((err) => {
@@ -55,10 +81,34 @@ const importDetailSurat = (suratIndex) => {
         import('../../data/surah/surah_' + suratIndex + '.json')
     )
 }
-export function DetailSurat() {
+
+const DetailSurat = () => {
     let { suratId } = useParams();
 
     return (
-        <DetailSuratBody suratId={suratId} />
+        <DetailSuratBody suratId={parseInt(suratId)} />
     )
 }
+
+const DetailAyat = (props) => {
+    return (
+        <div className='ayat-item'>
+            <div className='ayatAr'>
+                <span className='ar'>{props.ayatAr}</span>
+                <span className='breaker'>
+                    <span className='breaker-inner'>{props.ayatIndex}</span>
+                </span>
+            </div>
+        </div>
+    )
+}
+
+DetailSuratBody.propTypes = {
+    suratId: PropTypes.number.isRequired
+}
+DetailAyat.propTypes = {
+    ayatAr: PropTypes.string.isRequired,
+    ayatIndex: PropTypes.number.isRequired
+}
+
+export { DetailSurat, DetailSuratBody, DetailAyat }

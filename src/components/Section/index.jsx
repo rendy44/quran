@@ -4,6 +4,7 @@ import './Style.scss';
 
 const Section = (props) => {
     const colSizeCss = props.isFull ? 'col' : 'col-sm-6-7 col-md-4-5 col-lg-3-4';
+    const maybeTitle = props.title ? <div className='section-title'><h2 className='title'>{props.title}</h2></div> : '';
     return (
         <>
             <section className='section'>
@@ -11,9 +12,7 @@ const Section = (props) => {
                     <div className='inner'>
                         <div className='frow'>
                             <div className={colSizeCss}>
-                                <div className='section-title'>
-                                    <h2 className='title'>{props.title}</h2>
-                                </div>
+                                {maybeTitle}
                                 {props.children}
                             </div>
                         </div>
@@ -25,7 +24,7 @@ const Section = (props) => {
 }
 
 Section.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     isFull: PropTypes.bool
 }
 

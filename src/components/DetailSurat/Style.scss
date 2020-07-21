@@ -1,0 +1,52 @@
+@import '../../assets/sass/MainUtil';
+
+.ayat-items {
+    .ayat-item {
+        margin-bottom: 2rem;
+
+        .ayatAr {
+            direction: rtl;
+
+            span {
+                &.ar {
+                    font-size: 2rem;
+                    letter-spacing: 1px;
+                    line-height: 1.5;
+                }
+
+                &.breaker {
+                    font-size: 2rem;
+                    vertical-align: super;
+                    position: relative;
+
+                    .breaker-inner {
+                        font-size: 12px;
+                        width: 30px;
+                        height: 30px;
+                        display: inline-flex;
+                        align-items: center;
+                        justify-content: center;
+                        margin-right: 1rem;
+                        font-weight: 600;
+                        position: relative;
+                        top: -2px;
+                        color: $main;
+
+                        &::after {
+                            content: '';
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            height: 100%;
+                            width: 100%;
+                            border: 2px dotted $main;
+                            @include borderRadius(50%);
+                        }
+
+                        // @include borderRadius(50%);
+                    }
+                }
+            }
+        }
+    }
+}
