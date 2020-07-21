@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import QuickSearch from './components/QuickSearch';
 import { ListSurat, ListSuratItem } from './components/ListSurat';
-import Section, { FullSection } from './components/Section';
+import Section from './components/Section';
 import Footer from './components/Footer';
 import {
   BrowserRouter as Router,
@@ -13,7 +13,7 @@ import {
   Route,
 } from "react-router-dom";
 import { DetailSurat } from './components/DetailSurat';
-import ReactLoading from 'react-loading';
+import { LoadingFull } from './components/Global';
 
 class App extends React.Component {
   constructor() {
@@ -56,9 +56,7 @@ class App extends React.Component {
       )
     } else {
       return (
-        <FullSection>
-          <ReactLoading type={'cylon'} color={'#335577'} />
-        </FullSection>
+        <LoadingFull />
       )
     }
   }

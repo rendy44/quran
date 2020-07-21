@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import { LoadingFull } from '../Global';
 
 export class DetailSuratBody extends React.Component {
     constructor(props) {
@@ -22,7 +23,9 @@ export class DetailSuratBody extends React.Component {
 
             }
         } else {
-
+            return (
+                <LoadingFull />
+            )
         }
 
         return (
