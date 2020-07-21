@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import QuickSearch from './components/QuickSearch';
 import { ListSurat, ListSuratItem } from './components/ListSurat';
-import Section from './components/Section';
+import Section, { FullSection } from './components/Section';
 import Footer from './components/Footer';
 import {
   BrowserRouter as Router,
@@ -13,49 +13,59 @@ import {
   Route,
 } from "react-router-dom";
 import { DetailSurat } from './components/DetailSurat';
+import ReactLoading from 'react-loading';
 
 class App extends React.Component {
   constructor() {
     super()
 
     this.state = {
-      listSuratHtml: []
+      listSuratHtml: [],
+      isLoaded: false
     }
   }
 
   render() {
-    return (
-      <>
-        <Header />
-        <Router>
-          <Switch>
-            <Route path='/surat/:suratId'>
-              <DetailSurat />
-            </Route>
-            <Route path='/'>
-              <>
-                <Hero>
-                  <QuickSearch />
-                </Hero>
-                <Section title={'Daftar Surat'}>
-                  <ListSurat>
-                    {this.state.listSuratHtml}
-                  </ListSurat>
-                </Section>
-              </>
-            </Route>
-          </Switch>
-        </Router>
-        <Footer>
-          &copy; 2016 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
-        </Footer>
-      </>
-    );
+    if (this.state.isLoaded) {
+      return (
+        <>
+          <Header />
+          <Router>
+            <Switch>
+              <Route path='/surat/:suratId'>
+                <DetailSurat />
+              </Route>
+              <Route path='/'>
+                <>
+                  <Hero>
+                    <QuickSearch />
+                  </Hero>
+                  <Section title={'Daftar Surat'}>
+                    <ListSurat>
+                      {this.state.listSuratHtml}
+                    </ListSurat>
+                  </Section>
+                </>
+              </Route>
+            </Switch>
+          </Router>
+          <Footer>
+            &copy; 2016 QuranKu - Dibuat dan didesain oleh <a href='http://fb.com/rendy.444444' target='_blank' rel='noopener noreferrer'>Rendy</a>
+          </Footer>
+        </>
+      )
+    } else {
+      return (
+        <FullSection>
+          <ReactLoading type={'cylon'} color={'#335577'} />
+        </FullSection>
+      )
+    }
   }
 
   componentDidMount() {
     let listSuratHtml = [];
-    DataListSurat.map((surat, i) => {
+    let ParseSurat = DataListSurat.map((surat, i) => {
       return (
         listSuratHtml.push(<ListSuratItem
           key={i}
@@ -68,7 +78,13 @@ class App extends React.Component {
       )
     })
 
-    this.setState({ listSuratHtml: listSuratHtml })
+    Promise.all(ParseSurat)
+      .then((res) => {
+        this.setState({
+          listSuratHtml: listSuratHtml,
+          isLoaded: true
+        })
+      })
   }
 }
 

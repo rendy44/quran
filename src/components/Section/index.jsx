@@ -28,4 +28,13 @@ Section.propTypes = {
     title: PropTypes.string.isRequired,
     isFull: PropTypes.bool
 }
+
+export const FullSection = (props) => {
+    return (
+        <div className='fullscreen'>
+            {props.children}
+        </div>
+    )
+}
+
 export default Section;
