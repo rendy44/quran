@@ -21,7 +21,7 @@ class DetailSuratBody extends React.Component {
     }
 
     render() {
-        const { isLoaded, isLoadSuccess, numberOfAyat, nameOfSurat, listAyat, translation } = this.state;
+        const { isLoaded, isLoadSuccess, listAyat, translation } = this.state;
         if (isLoaded) {
             if (isLoadSuccess) {
                 let AyatList = Object.entries(listAyat);
@@ -41,7 +41,12 @@ class DetailSuratBody extends React.Component {
                     }
 
                     return (
-                        ListAyatHtml.push(<DetailAyat key={i} ayatIndex={cleanAyatStr} ayatAr={ayat[1]} ayatTranslation={cleanAyatTrans} />)
+                        ListAyatHtml.push(<DetailAyat
+                            key={i}
+                            ayatIndex={cleanAyatStr}
+                            ayatAr={ayat[1]}
+                            ayatTranslation={cleanAyatTrans}
+                        />)
                     )
                 })
                 return (
