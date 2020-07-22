@@ -37,7 +37,7 @@ class App extends React.Component {
                   <div className='nav'>
                     <Link to='/'>QuranKu</Link>
                   </div>
-                  {/* <HeaderSurat /> */}
+                  <HeaderSurat />
                 </Header>
                 <DetailSurat />
               </Route>

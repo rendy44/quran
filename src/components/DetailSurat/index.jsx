@@ -1,17 +1,10 @@
 import React from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { LoadingFull, ErrorScreen } from '../Global';
 import PropTypes from 'prop-types';
 import Section from '../Section';
-import {
-    Link,
-    DirectLink,
-    Element,
-    Events,
-    animateScroll,
-    scrollSpy,
-    scroller
-} from "react-scroll";
+import { Element } from "react-scroll";
+import { FaArrowRight, FaArrowLeft } from 'react-icons/fa';
 import './Style.scss';
 
 class DetailSuratBody extends React.Component {
@@ -33,7 +26,7 @@ class DetailSuratBody extends React.Component {
         const { isLoaded, isLoadSuccess, listAyat, translation } = this.state;
         if (isLoaded) {
             if (isLoadSuccess) {
-                let maybeBasmallah = 1 !== this.state.suratId ? <Basmallah /> : '';
+                let maybeBasmallah = 1 !== this.state.suratId ? <div className='basmallah'><span>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</span></div> : '';
                 let AyatList = Object.entries(listAyat);
                 let ListAyatHtml = [];
                 let TranslationList = Object.entries(translation);
@@ -80,15 +73,25 @@ class DetailSuratBody extends React.Component {
         }
     }
 
+    importTranslation(suratId) {
+        return (
+            import('../../data/translation/id/id_translation_' + suratId + '.json')
+        )
+    }
+    importDetailSurat(suratId) {
+        return (
+            import('../../data/surah/surah_' + suratId + '.json')
+        )
+    }
     componentDidMount() {
 
         const { suratId } = this.props;
         // Import detail surat.
-        importDetailSurat(suratId)
+        this.importDetailSurat(suratId)
             .then((data) => {
 
                 // Import translation.
-                importTranslation(suratId)
+                this.importTranslation(suratId)
                     .then((dataTrans) => {
                         this.setState({
                             suratId: suratId,
@@ -111,30 +114,11 @@ class DetailSuratBody extends React.Component {
     }
 }
 
-const importTranslation = (suratIndex) => {
-    return (
-        import('../../data/translation/id/id_translation_' + suratIndex + '.json')
-    )
-}
-const importDetailSurat = (suratIndex) => {
-    return (
-        import('../../data/surah/surah_' + suratIndex + '.json')
-    )
-}
-
 const DetailSurat = () => {
     let { suratId } = useParams();
 
     return (
         <DetailSuratBody suratId={parseInt(suratId)} />
-    )
-}
-
-const Basmallah = () => {
-    return (
-        <div className='basmallah'>
-            <span>بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ</span>
-        </div>
     )
 }
 
@@ -158,16 +142,20 @@ const DetailAyat = (props) => {
 
 const HeaderSurat = () => {
     let { suratId } = useParams();
+    const prevNumber = suratId ? '/surat/' + (parseInt(suratId) - 1) : '',
+        nextNumber = suratId ? '/surat/' + (parseInt(suratId) + 1) : '';
+    const maybePrevSurat = suratId > 1 ? <li><Link to={prevNumber}><FaArrowLeft /></Link></li> : '',
+        maybeNextSurat = suratId < 114 ? <li><Link to={nextNumber}><FaArrowRight /></Link></li> : '';
     return (
         <>
-            <div className='suratheader'>
-                <form>
-                    <input type='number' name='goto' placeholder={'Ke nomor ayat...'}></input>
-                </form>
-            </div>
+            <ul className='suratNav'>
+                {maybePrevSurat}
+                {maybeNextSurat}
+            </ul>
         </>
     )
 }
+
 DetailSuratBody.propTypes = {
     suratId: PropTypes.number.isRequired
 }
