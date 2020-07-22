@@ -3,6 +3,15 @@ import { useParams } from "react-router-dom";
 import { LoadingFull, ErrorScreen } from '../Global';
 import PropTypes from 'prop-types';
 import Section from '../Section';
+import {
+    Link,
+    DirectLink,
+    Element,
+    Events,
+    animateScroll,
+    scrollSpy,
+    scroller
+} from "react-scroll";
 import './Style.scss';
 
 class DetailSuratBody extends React.Component {
@@ -131,20 +140,34 @@ const Basmallah = () => {
 
 const DetailAyat = (props) => {
     return (
-        <div className='ayat-item'>
-            <div className='ayatAr'>
-                <span className='ar'>{props.ayatAr}</span>
-                <span className='breaker'>
-                    <span className='breaker-inner'>{props.ayatIndex}</span>
-                </span>
+        <Element name={'ayat_' + props.ayatIndex} className="element">
+            <div className='ayat-item'>
+                <div className='ayatAr'>
+                    <span className='ar'>{props.ayatAr}</span>
+                    <span className='breaker'>
+                        <span className='breaker-inner'>{props.ayatIndex}</span>
+                    </span>
+                </div>
+                <div className='ayatTranslation'>
+                    <p>{props.ayatTranslation}</p>
+                </div>
             </div>
-            <div className='ayatTranslation'>
-                <p>{props.ayatTranslation}</p>
-            </div>
-        </div>
+        </Element>
     )
 }
 
+const HeaderSurat = () => {
+    let { suratId } = useParams();
+    return (
+        <>
+            <div className='suratheader'>
+                <form>
+                    <input type='number' name='goto' placeholder={'Ke nomor ayat...'}></input>
+                </form>
+            </div>
+        </>
+    )
+}
 DetailSuratBody.propTypes = {
     suratId: PropTypes.number.isRequired
 }
@@ -154,4 +177,4 @@ DetailAyat.propTypes = {
     ayatTranslation: PropTypes.string.isRequired
 }
 
-export { DetailSurat, DetailSuratBody, DetailAyat }
+export { DetailSurat, DetailSuratBody, DetailAyat, HeaderSurat }

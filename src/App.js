@@ -11,8 +11,9 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
+  Link,
 } from "react-router-dom";
-import { DetailSurat } from './components/DetailSurat';
+import { DetailSurat, HeaderSurat } from './components/DetailSurat';
 import { LoadingFull } from './components/Global';
 
 class App extends React.Component {
@@ -30,13 +31,23 @@ class App extends React.Component {
       return (
         <>
           <Router>
-            <Header />
             <Switch>
               <Route path='/surat/:suratId'>
+                <Header>
+                  <div className='nav'>
+                    <Link to='/'>QuranKu</Link>
+                  </div>
+                  {/* <HeaderSurat /> */}
+                </Header>
                 <DetailSurat />
               </Route>
               <Route path='/'>
                 <>
+                  <Header>
+                    <div className='nav'>
+                      <Link to='/'>QuranKu</Link>
+                    </div>
+                  </Header>
                   <Hero>
                     <QuickSearch />
                   </Hero>
